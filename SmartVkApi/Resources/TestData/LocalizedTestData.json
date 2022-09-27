@@ -1,0 +1,16 @@
+{
+  "Localizations": [
+    {
+      "Language": "English",
+      "SubmitLoginButton": "Sign in",
+      "SubmitPasswordButton": "Continue",
+      "MyProfile": "My profile"
+    },
+    {
+      "Language": "Русский",
+      "SubmitLoginButton": "Войти",
+      "SubmitPasswordButton": "Продолжить",
+      "MyProfile": "Моя страница"
+    }
+  ]
+}
