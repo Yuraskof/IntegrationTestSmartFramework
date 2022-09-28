@@ -22,11 +22,6 @@ namespace SmartVkApi.Base
         [SetUp]
         public void Setup()
         {
-            //WallPostModel postModel = new WallPostModel();
-            //postModel.message = "Hello";
-            //ApiApplicationRequest.CreatePostOnTheWall(postModel);
-            
-
             Logger.Info($"Start scenario [{ScenarioName}]");
             AqualityServices.Browser.GoTo(testData.Url);
             Logger.Info("Step 1 completed.");

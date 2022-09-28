@@ -1,5 +1,8 @@
 {
   "postOnTheWall": "wall.post",
-  "": "",
-  "": ""
+  "editPostOnTheWall": "wall.edit",
+  "getUploadUrl": "photos.getWallUploadServer",
+  "saveWallPhoto": "photos.saveWallPhoto",
+  "": "wall.edit",
+  "": "wall.edit"
 }

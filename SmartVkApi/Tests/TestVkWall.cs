@@ -1,5 +1,4 @@
 using SmartVkApi.Base;
-using SmartVkApi.Constants;
 using SmartVkApi.Forms.Pages;
 using SmartVkApi.Models;
 using SmartVkApi.Forms;
@@ -40,6 +39,24 @@ namespace SmartVkApi.Tests
             WallPostResponseModel postResponseModel = ApiApplicationRequest.CreatePostOnTheWall(postModel);
             Assert.NotNull(postResponseModel.response.post_id, $"{sideNavigationForm.Name} should be presented");
             Logger.Info("Step 4 completed.");
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(myProfilePage.GetPostText(postModel) == postMessage, "Messages should be equal");
+                Assert.IsTrue(myProfilePage.GetAuthorLink().Contains(testData.UserId), "Messages should be equal");
+            });
+            Logger.Info("Step 5 completed.");
+
+            string editedMessage = StringUtils.StringGenerator(Convert.ToInt32(testData.LettersCount));
+            string photoId = ApiApplicationRequest.GetPhotoId();
+            WallPostModel editedPostModel = ModelUtils.CreateWallPostModel(editedMessage, photoId, postResponseModel.response.post_id);
+            WallPostResponseModel editedPostResponseModel = ApiApplicationRequest.EditPostOnTheWall(editedPostModel);
+            Logger.Info("Step 6 completed.");
+
+
+
+
+
 
         }
 

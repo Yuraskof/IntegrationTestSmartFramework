@@ -23,5 +23,11 @@ namespace SmartVkApi.Utilities
             BaseTest.Logger.Info(string.Format("Path {0} deserialized", path));
             return JsonConvert.DeserializeObject<T>(FileReader.ReadFile(path));
         }
+
+        public static string SerializeJsonData(object content)
+        {
+            BaseTest.Logger.Info("Start serializing");
+            return JsonConvert.SerializeObject(content);
+        }
     }
 }

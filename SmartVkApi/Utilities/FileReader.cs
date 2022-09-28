@@ -33,7 +33,14 @@ namespace SmartVkApi.Utilities
                 BaseTest.Logger.Info("Log file deleted");
             }
         }
-        
+
+        public static ByteArrayContent ReadImage(string path)
+        {
+            BaseTest.Logger.Info(string.Format("Image {0} read", path));
+            byte[] imgdata = File.ReadAllBytes(path);
+            return new ByteArrayContent(imgdata);
+        }
+
         public static string ReadFile(string path)
         {
             using (StreamReader sr = new StreamReader(path))

@@ -12,5 +12,6 @@
         public const string PathToLocalizedTestData = @"Resources\TestData\LocalizedTestData.json";
         public const string MediaType = "application/json";
         public const string PathToApiMethods = @"Resources\TestData\ApiMethods.json";
+        public const string PathToWallPostImage = @"VisualDumps\My profile page\Post image.png";
     }
 }
