@@ -53,11 +53,14 @@ namespace SmartVkApi.Tests
             WallPostResponseModel editedPostResponseModel = ApiApplicationRequest.EditPostOnTheWall(editedPostModel);
             Logger.Info("Step 6 completed.");
 
+            Assert.IsTrue(myProfilePage.GetPostText(editedPostModel) != postMessage, "Messages should be different");
+            myProfilePage.OpenFullSizeImage(photoId);
+            Assert.IsTrue(myProfilePage.fullSizeImageForm.State.WaitForDisplayed(), $"{myProfilePage.fullSizeImageForm.Name} should be presented");
+            float difference = myProfilePage.fullSizeImageForm.Dump.Compare();
+            Assert.IsTrue(difference < 1, "Images are not equal");
+            Logger.Info("Step 7 completed.");
 
-
-
-
-
+            myProfilePage.fullSizeImageForm.CloseForm();
         }
 
         public static IEnumerable<object[]> PrepareToTest()

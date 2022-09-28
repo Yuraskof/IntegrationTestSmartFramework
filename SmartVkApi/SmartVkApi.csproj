@@ -39,7 +39,7 @@
     <None Update="Resources\TestData\TestData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="VisualDumps\My profile page\Post image.png">
+    <None Update="Resources\VisualDumps\Full size image form\Post image.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

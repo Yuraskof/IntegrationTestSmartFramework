@@ -11,6 +11,10 @@ namespace SmartVkApi.Forms.Pages
         private ITextBox PostTextBox(string text) => ElementFactory.GetTextBox(By.XPath(string.Format("//div[contains (@class, \"wall_post_text\")][contains (text(), \"{0}\")]", text)), "Posted text");
         private ILink AuthorNameLink => ElementFactory.GetLink(By.XPath("//a[@class = \"author\"]"), "Author name");
 
+        private ILabel PostImage(string id) => ElementFactory.GetLabel(By.XPath(string.Format("//div[contains (@class, \"wall_post_cont\")]//a[contains (@href,\"{0}\")]", id)), "Post image mini");
+
+        public FullSizeImageForm fullSizeImageForm = new FullSizeImageForm();
+        
         public MyProfilePage() : base(By.XPath("//div[@id= \"profile_wall\"]"), "My profile page")
         {
         }
@@ -24,6 +28,11 @@ namespace SmartVkApi.Forms.Pages
         public string GetAuthorLink()
         {
             return AuthorNameLink.Href;
+        }
+
+        public void OpenFullSizeImage(string id)
+        {
+            PostImage(id).ClickAndWait();
         }
     }
 }
