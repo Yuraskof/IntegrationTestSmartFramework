@@ -4,6 +4,8 @@ using Humanizer;
 using NUnit.Framework.Interfaces;
 using SmartVkApi.Constants;
 using SmartVkApi.Models;
+using SmartVkApi.Models.RequestModels;
+using SmartVkApi.Models.ResponseModels;
 using SmartVkApi.Utilities;
 
 namespace SmartVkApi.Base
@@ -22,6 +24,12 @@ namespace SmartVkApi.Base
         [SetUp]
         public void Setup()
         {
+            //WallCommentModel wallCommentModel = ModelUtils.CreateWallCommentModel("vsdvcds", postId: "110");
+            //WallCommentResponseModel wallCommentResponseModel = ApiApplicationRequest.AddCommentOnTheWall(wallCommentModel);
+
+
+
+
             Logger.Info($"Start scenario [{ScenarioName}]");
             AqualityServices.Browser.GoTo(testData.Url);
             Logger.Info("Step 1 completed.");

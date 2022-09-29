@@ -1,9 +1,9 @@
-﻿namespace SmartVkApi.Models
+﻿namespace SmartVkApi.Models.ResponseModels
 {
     public class SaveWallPhotoResponseModel
     {
         public Response[] response { get; set; }
-        
+
         public class Response
         {
             public int album_id { get; set; }

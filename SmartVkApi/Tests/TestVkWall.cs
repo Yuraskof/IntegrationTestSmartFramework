@@ -4,6 +4,8 @@ using SmartVkApi.Models;
 using SmartVkApi.Forms;
 using SmartVkApi.Utilities;
 using RestApiTask.Utils;
+using SmartVkApi.Models.RequestModels;
+using SmartVkApi.Models.ResponseModels;
 
 namespace SmartVkApi.Tests
 {
@@ -34,16 +36,15 @@ namespace SmartVkApi.Tests
             Assert.IsTrue(myProfilePage.State.WaitForDisplayed(), $"{myProfilePage.Name} should be presented");
             Logger.Info("Step 3 completed.");
 
-            string postMessage = StringUtils.StringGenerator(Convert.ToInt32(BaseTest.testData.LettersCount));
-            WallPostModel postModel = ModelUtils.CreateWallPostModel(postMessage);
+            WallPostModel postModel = ModelUtils.CreateWallPostModel(StringUtils.StringGenerator(Convert.ToInt32(BaseTest.testData.LettersCount)));
             WallPostResponseModel postResponseModel = ApiApplicationRequest.CreatePostOnTheWall(postModel);
             Assert.NotNull(postResponseModel.response.post_id, $"{sideNavigationForm.Name} should be presented");
             Logger.Info("Step 4 completed.");
 
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(myProfilePage.GetPostText(postModel) == postMessage, "Messages should be equal");
-                Assert.IsTrue(myProfilePage.GetAuthorLink().Contains(testData.UserId), "Messages should be equal");
+                Assert.IsTrue(myProfilePage.GetPostText(postModel) == postModel.message, "Messages should be equal");
+                Assert.IsTrue(myProfilePage.GetAuthorLink().Contains(testData.UserId), "Wrong author");
             });
             Logger.Info("Step 5 completed.");
 
@@ -53,14 +54,27 @@ namespace SmartVkApi.Tests
             WallPostResponseModel editedPostResponseModel = ApiApplicationRequest.EditPostOnTheWall(editedPostModel);
             Logger.Info("Step 6 completed.");
 
-            Assert.IsTrue(myProfilePage.GetPostText(editedPostModel) != postMessage, "Messages should be different");
+            Assert.IsTrue(myProfilePage.GetPostText(editedPostModel) != postModel.message, "Messages should be different");
             myProfilePage.OpenFullSizeImage(photoId);
             Assert.IsTrue(myProfilePage.fullSizeImageForm.State.WaitForDisplayed(), $"{myProfilePage.fullSizeImageForm.Name} should be presented");
-            float difference = myProfilePage.fullSizeImageForm.Dump.Compare();
+            float difference = myProfilePage.fullSizeImageForm.CompareImages();
             Assert.IsTrue(difference < 1, "Images are not equal");
             Logger.Info("Step 7 completed.");
 
             myProfilePage.fullSizeImageForm.CloseForm();
+            string commentMessage = StringUtils.StringGenerator(Convert.ToInt32(testData.LettersCount));
+            WallCommentModel wallCommentModel = ModelUtils.CreateWallCommentModel(commentMessage, postId: editedPostResponseModel.response.post_id);
+            WallCommentResponseModel wallCommentResponseModel = ApiApplicationRequest.AddCommentOnTheWall(wallCommentModel);
+            Logger.Info("Step 8 completed.");
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(myProfilePage.GetCommentText(editedPostModel, wallCommentModel) == wallCommentModel.message, "Messages should be equal");
+                Assert.IsTrue(myProfilePage.GetCommentAuthorLink(editedPostModel, wallCommentModel).Contains(testData.UserId), "Wrong author");
+            });
+            Logger.Info("Step 9 completed.");
+
+
         }
 
         public static IEnumerable<object[]> PrepareToTest()

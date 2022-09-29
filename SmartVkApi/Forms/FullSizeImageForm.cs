@@ -1,6 +1,7 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
+using SmartVkApi.Constants;
 
 namespace SmartVkApi.Forms
 {
@@ -10,7 +11,7 @@ namespace SmartVkApi.Forms
 
         private IButton CloseFormButton => ElementFactory.GetButton(By.XPath("//div[@class = \"pv_close_btn\"]"), "Close button");
         
-        public FullSizeImageForm() : base(By.XPath("//div[@class = \"pv_cont\"]"), "Full size image form")
+        public FullSizeImageForm() : base(By.XPath("//div[@class = \"pv_cont\"]"), "Full size image form") 
         {
         }
 
@@ -18,6 +19,12 @@ namespace SmartVkApi.Forms
         {
             {"Post image", PostImageFullSize },
         };
+
+        public float CompareImages()
+        {
+            PostImageFullSize.State.WaitForEnabled(TimeSpan.FromSeconds(ProjectConstants.TimeoutForElements));
+            return Dump.Compare();
+        }
 
         public void CloseForm()
         {

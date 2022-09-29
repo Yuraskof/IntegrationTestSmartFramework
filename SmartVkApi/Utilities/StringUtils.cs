@@ -6,7 +6,7 @@ namespace RestApiTask.Utils
     {
         public static string StringGenerator(int lettersCount)
         {
-            char[] letters = "ABCD EFGHI_JKLMN-OPQRS!TUVWXYZabc,defghigk lmnopqr stuvwxyz".ToCharArray();
+            char[] letters = "ABCDEFGHI_JKLMN-OPQRS!TUVWXYZabc,defghigklmnopqrstuvwxyz".ToCharArray();
 
             Random rand = new Random();
 

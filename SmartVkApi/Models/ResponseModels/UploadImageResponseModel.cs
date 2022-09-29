@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-namespace SmartVkApi.Models
+
+namespace SmartVkApi.Models.ResponseModels
 {
     public class UploadImageResponseModel
     {

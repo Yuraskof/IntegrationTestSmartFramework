@@ -1,4 +1,4 @@
-﻿namespace SmartVkApi.Models
+﻿namespace SmartVkApi.Models.RequestModels
 {
     public class SaveWallPhotoModel
     {

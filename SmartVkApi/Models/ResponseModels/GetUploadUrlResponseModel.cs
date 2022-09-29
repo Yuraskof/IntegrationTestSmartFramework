@@ -1,9 +1,9 @@
-﻿namespace SmartVkApi.Models
+﻿namespace SmartVkApi.Models.ResponseModels
 {
     public class GetUploadUrlResponseModel
     {
         public Response response { get; set; }
-        
+
         public class Response
         {
             public string upload_url { get; set; }

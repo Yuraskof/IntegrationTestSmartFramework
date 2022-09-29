@@ -1,6 +1,7 @@
 ﻿using SmartVkApi.Base;
 using SmartVkApi.Constants;
-using SmartVkApi.Models;
+using SmartVkApi.Models.RequestModels;
+using SmartVkApi.Models.ResponseModels;
 using System.Text;
 
 namespace SmartVkApi.Utilities
@@ -108,7 +109,23 @@ namespace SmartVkApi.Utilities
             return "photo" + saveWallPhotoModel.user_id + "_" + saveWallPhotoResponseModel.response[0].id;
         }
 
+        public static WallCommentResponseModel AddCommentOnTheWall(WallCommentModel model)
+        {
+            BaseTest.Logger.Info("Send comment request");
+            string request = host + apiMethods["addWallComment"] + "?" + "owner_id=" + model.owner_id + "&" +
+                             "message=" + model.message + "&" + "post_id=" + model.post_id + "&" + "access_token=" + 
+                             model.access_token + "&" + "v=" + model.v;
 
+            var stringContent = JsonUtils.SerializeJsonData(model);
+
+            var httpContent = new StringContent(stringContent, Encoding.UTF8, ProjectConstants.MediaType);
+
+            response = VkApi.PostRequest(request, httpContent);
+
+            string contentString = response.Content.ReadAsStringAsync().Result;
+
+            return JsonUtils.ReadJsonData<WallCommentResponseModel>(contentString);
+        }
         //public static List<PostModel> GetAllPosts()
         //{
         //    Test.Log.Info("Get all posts");
