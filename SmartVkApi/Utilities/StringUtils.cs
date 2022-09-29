@@ -1,4 +1,4 @@
-﻿using SmartVkApi.Base;
+﻿using SmartVkApi.Utilities;
 
 namespace RestApiTask.Utils
 {
@@ -18,7 +18,7 @@ namespace RestApiTask.Utils
 
                 word += letters[letter];
             }
-            BaseTest.Logger.Info(string.Format("generated random text = {0}", word));
+            LoggerUtils.LogStep(nameof(StringGenerator) + $" \"Generated random text - [{word}]\"");
             return word;
         }
     }

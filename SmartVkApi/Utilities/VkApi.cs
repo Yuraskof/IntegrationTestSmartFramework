@@ -1,13 +1,11 @@
-﻿using SmartVkApi.Base;
-
-namespace SmartVkApi.Utilities
+﻿namespace SmartVkApi.Utilities
 {
     public class VkApi
     {
         public static HttpResponseMessage GetRequest(string request)
         {
-            BaseTest.Logger.Info(string.Format("Get request {0}", request));
-
+            LoggerUtils.LogStep(nameof(GetRequest) + $" \"Get request - [{request}]\"");
+            
             HttpClient client = new HttpClient();
 
             HttpResponseMessage response = client.GetAsync(request).Result;
@@ -19,7 +17,7 @@ namespace SmartVkApi.Utilities
 
         public static HttpResponseMessage PostRequest(string request, HttpContent content) 
         {
-            BaseTest.Logger.Info(string.Format("Post request {0}", request));
+            LoggerUtils.LogStep(nameof(PostRequest) + $" \"Post request - [{request}]\"");
             
             HttpClient client = new HttpClient();
 

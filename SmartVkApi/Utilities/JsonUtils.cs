@@ -8,25 +8,26 @@ namespace SmartVkApi.Utilities
     {
         public static JObject ParseToJsonObject(string content)
         {
-            BaseTest.Logger.Info("Start parsing to json object");
+            LoggerUtils.LogStep(nameof(ParseToJsonObject) + " \"Start parsing to json object\"");
+            
             return JObject.Parse(content);
         }
 
         public static T ReadJsonData<T>(string content)
         {
-            BaseTest.Logger.Info("Start deserializing");
+            LoggerUtils.LogStep(nameof(ReadJsonData) + " \"Start deserializing\"");
             return JsonConvert.DeserializeObject<T>(content);
         }
 
         public static T ReadJsonDataFromPath<T>(string path)
         {
-            BaseTest.Logger.Info(string.Format("Path {0} deserialized", path));
+            LoggerUtils.LogStep(nameof(ReadJsonDataFromPath) + $" \"Path - [{path}] deserialized\"");
             return JsonConvert.DeserializeObject<T>(FileReader.ReadFile(path));
         }
 
         public static string SerializeJsonData(object content)
         {
-            BaseTest.Logger.Info("Start serializing");
+            LoggerUtils.LogStep(nameof(SerializeJsonData) + " \"Start serializing\"");
             return JsonConvert.SerializeObject(content);
         }
     }

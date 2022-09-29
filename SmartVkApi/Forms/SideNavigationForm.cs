@@ -23,6 +23,7 @@ namespace SmartVkApi.Forms
 
             if (MyPageButton(model.MyProfile).State.IsExist)
             {
+                MyPageButton(model.MyProfile).State.WaitForEnabled();
                 MyPageButton(model.MyProfile).Click();
                 return true;
             }

@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <None Update="Resources\settings.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\TestData\ApiMethods.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

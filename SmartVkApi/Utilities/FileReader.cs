@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using NUnit.Framework.Internal;
-using SmartVkApi.Base;
 using SmartVkApi.Constants;
 
 namespace SmartVkApi.Utilities
@@ -9,7 +7,8 @@ namespace SmartVkApi.Utilities
     {
         public static Dictionary<string, string> GetApiMethods()
         {
-            BaseTest.Logger.Info("Get api methods");
+            LoggerUtils.LogStep(nameof(GetApiMethods) + " \"Get api methods\"");
+            
             var filePath = ProjectConstants.PathToApiMethods;
             var json = File.ReadAllText(filePath);
             var jsonObj = JObject.Parse(json);
@@ -30,13 +29,13 @@ namespace SmartVkApi.Utilities
             if (file.Exists)
             {
                 file.Delete();
-                BaseTest.Logger.Info("Log file deleted");
+                LoggerUtils.LogStep(nameof(ClearLogFile) + $" \"Log file deleted - [{file}]\"");
             }
         }
 
         public static ByteArrayContent ReadImage(string path)
         {
-            BaseTest.Logger.Info(string.Format("Image {0} read", path));
+            LoggerUtils.LogStep(nameof(ReadImage) + $" \"Image - [{path}] read\"");
             byte[] imgdata = File.ReadAllBytes(path);
             return new ByteArrayContent(imgdata);
         }
@@ -45,7 +44,7 @@ namespace SmartVkApi.Utilities
         {
             using (StreamReader sr = new StreamReader(path))
             {
-                BaseTest.Logger.Info(string.Format("File {0} read", path));
+                LoggerUtils.LogStep(nameof(ReadFile) + $" \"File - [{path}] read\"");
                 return sr.ReadToEnd();
             }
         }

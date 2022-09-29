@@ -6,13 +6,13 @@ using SmartVkApi.Models.ResponseModels;
 
 namespace SmartVkApi.Utilities
 {
-    public class ModelUtils
+    public static class ModelUtils
     {
         public static UploadImageResponseModel uploadImageResponse = new UploadImageResponseModel();
 
         public static List<LocalizedTestDataModel> GetModels()
         {
-            BaseTest.Logger.Info("Start creating localized test data model");
+            LoggerUtils.LogStep(nameof(GetModels) + " \"Start creating localized test data model\"");
 
             var json = File.ReadAllText(ProjectConstants.PathToLocalizedTestData);
             var jsonObj = JsonUtils.ParseToJsonObject(json);
@@ -25,7 +25,7 @@ namespace SmartVkApi.Utilities
 
         public static WallPostModel CreateWallPostModel(object content, string attachments = null, string postId = null)
         {
-            BaseTest.Logger.Info("Start creating wall post model");
+            LoggerUtils.LogStep(nameof(CreateWallPostModel) + " \"Start creating wall post model\"");
 
             WallPostModel postModel = new WallPostModel();
             postModel.message = content.ToString();
@@ -39,8 +39,8 @@ namespace SmartVkApi.Utilities
 
         public static GetUploadUrlModel CreateGetUploadUrlModel(object content)
         {
-            BaseTest.Logger.Info("Start creating get upload url model");
-
+            LoggerUtils.LogStep(nameof(CreateGetUploadUrlModel) + " \"Start creating get upload url model\"");
+            
             GetUploadUrlModel model = new GetUploadUrlModel();
             model.group_id = content.ToString();
             model.v = BaseTest.testData.ApiVersion;
@@ -50,8 +50,8 @@ namespace SmartVkApi.Utilities
 
         public static SaveWallPhotoModel CreateSaveWallPhotoModel()
         {
-            BaseTest.Logger.Info("Start creating wall post model");
-
+            LoggerUtils.LogStep(nameof(CreateSaveWallPhotoModel) + " \"Start creating wall post model\"");
+            
             SaveWallPhotoModel model = new SaveWallPhotoModel();
             model.user_id = BaseTest.testData.UserId;
             model.v = BaseTest.testData.ApiVersion;
@@ -64,8 +64,8 @@ namespace SmartVkApi.Utilities
 
         public static WallCommentModel CreateWallCommentModel(object content, string attachments = null, string postId = null)
         {
-            BaseTest.Logger.Info("Start creating wall comment model");
-
+            LoggerUtils.LogStep(nameof(CreateWallCommentModel) + " \"Start creating wall comment model\"");
+            
             WallCommentModel model = new WallCommentModel();
             model.message = content.ToString();
             model.v = BaseTest.testData.ApiVersion;
@@ -78,19 +78,20 @@ namespace SmartVkApi.Utilities
 
         public static GetLikesRequestModel CreateGetLikesRequestModel(object content)
         {
-            BaseTest.Logger.Info("Start creating get likes request model");
-
+            LoggerUtils.LogStep(nameof(CreateGetLikesRequestModel) + " \"Start creating get likes request model\"");
+            
             GetLikesRequestModel model = new GetLikesRequestModel();
             model.v = BaseTest.testData.ApiVersion;
             model.owner_id = BaseTest.testData.UserId;
             model.access_token = BaseTest.testData.Token;
-            model.post_id = content.ToString(); ;
+            model.post_id = content.ToString();
             return model;
         }
 
         public static bool FindLikeFromUser(GetLikesResponseModel getLikesResponseModel, WallPostModel postModel)
         {
-            BaseTest.Logger.Info("Start searching like from desired user");
+            LoggerUtils.LogStep(nameof(FindLikeFromUser) + " \"Start searching like from desired user\"");
+           
             foreach (var user in getLikesResponseModel.response.users)
             {
                 if (user.uid == postModel.owner_id)
@@ -103,13 +104,13 @@ namespace SmartVkApi.Utilities
 
         public static DeletePostFromWallModel CreateDeletePostFromWallModel(object content)
         {
-            BaseTest.Logger.Info("Start creating delete post from wall request model");
-
+            LoggerUtils.LogStep(nameof(CreateDeletePostFromWallModel) + " \"Start creating delete post from wall request model\"");
+            
             DeletePostFromWallModel model = new DeletePostFromWallModel();
             model.v = BaseTest.testData.ApiVersion;
             model.owner_id = BaseTest.testData.UserId;
             model.access_token = BaseTest.testData.Token;
-            model.post_id = content.ToString(); ;
+            model.post_id = content.ToString();
             return model;
         }
     }

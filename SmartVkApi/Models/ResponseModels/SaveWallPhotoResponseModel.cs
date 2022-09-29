@@ -23,6 +23,5 @@
             public string type { get; set; }
             public int width { get; set; }
         }
-
     }
 }

@@ -38,7 +38,8 @@ namespace SmartVkApi.Tests
 
             WallPostModel postModel = ModelUtils.CreateWallPostModel(StringUtils.StringGenerator(Convert.ToInt32(BaseTest.testData.LettersCount)));
             WallPostResponseModel postResponseModel = ApiApplicationRequest.CreatePostOnTheWall(postModel);
-            Assert.NotNull(postResponseModel.response.post_id, $"{sideNavigationForm.Name} should be presented");
+            Assert.NotNull(postResponseModel, "Model should be exist");
+            Assert.NotNull(postResponseModel.response.post_id, $"{postResponseModel.response.post_id} should be presented");
             Logger.Info("Step 4 completed.");
 
             Assert.Multiple(() =>
@@ -50,21 +51,24 @@ namespace SmartVkApi.Tests
 
             string editedMessage = StringUtils.StringGenerator(Convert.ToInt32(testData.LettersCount));
             string photoId = ApiApplicationRequest.GetPhotoId();
+            Assert.NotNull(photoId, "Photo id should be exist");
             WallPostModel editedPostModel = ModelUtils.CreateWallPostModel(editedMessage, photoId, postResponseModel.response.post_id);
             WallPostResponseModel editedPostResponseModel = ApiApplicationRequest.EditPostOnTheWall(editedPostModel);
+            Assert.NotNull(editedPostResponseModel, "Model should be exist");
             Logger.Info("Step 6 completed.");
 
             Assert.IsTrue(myProfilePage.GetPostText(editedPostModel) != postModel.message, "Messages should be different");
             myProfilePage.OpenFullSizeImage(photoId);
             Assert.IsTrue(myProfilePage.fullSizeImageForm.State.WaitForDisplayed(), $"{myProfilePage.fullSizeImageForm.Name} should be presented");
             float difference = myProfilePage.fullSizeImageForm.CompareImages();
-            Assert.IsTrue(difference < 1, "Images are not equal");
+            Assert.IsTrue(difference < 0.01, "Images are not equal");
             Logger.Info("Step 7 completed.");
 
             myProfilePage.fullSizeImageForm.CloseForm();
             string commentMessage = StringUtils.StringGenerator(Convert.ToInt32(testData.LettersCount));
             WallCommentModel wallCommentModel = ModelUtils.CreateWallCommentModel(commentMessage, postId: editedPostResponseModel.response.post_id);
             WallCommentResponseModel wallCommentResponseModel = ApiApplicationRequest.AddCommentOnTheWall(wallCommentModel);
+            Assert.NotNull(wallCommentResponseModel, "Model should be exist");
             Logger.Info("Step 8 completed.");
 
             Assert.Multiple(() =>
@@ -79,7 +83,8 @@ namespace SmartVkApi.Tests
 
             GetLikesRequestModel getLikesRequestModel = ModelUtils.CreateGetLikesRequestModel(editedPostResponseModel.response.post_id);
             GetLikesResponseModel getLikesResponseModel = ApiApplicationRequest.GetLikesFromTheWallPost(getLikesRequestModel);
-            
+            Assert.NotNull(getLikesResponseModel, "Model should be exist");
+
             Assert.Multiple(() =>
             {
                 Assert.IsTrue(getLikesResponseModel.response.count > 0, "Post should contains like");
@@ -89,6 +94,7 @@ namespace SmartVkApi.Tests
 
             DeletePostFromWallModel deletePostModel = ModelUtils.CreateDeletePostFromWallModel(editedPostResponseModel.response.post_id);
             DeletePostFromWallResponseModel deletePostFromWallResponseModel = ApiApplicationRequest.DeletePost(deletePostModel);
+            Assert.NotNull(deletePostFromWallResponseModel, "Model should be exist");
             Assert.IsTrue(deletePostFromWallResponseModel.response == 1, "Response doesn't equal 1");
             Logger.Info("Step 12 completed.");
 
@@ -101,6 +107,8 @@ namespace SmartVkApi.Tests
             FileReader.ClearLogFile();
 
             List<LocalizedTestDataModel> modelsList = ModelUtils.GetModels();
+
+            LoggerUtils.LogStep(nameof(PrepareToTest) + " \"Get localized models\"");
 
             foreach (var model in modelsList)
             {
