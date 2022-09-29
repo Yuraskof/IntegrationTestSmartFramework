@@ -4,5 +4,6 @@
   "getUploadUrl": "photos.getWallUploadServer",
   "saveWallPhoto": "photos.saveWallPhoto",
   "addWallComment": "wall.createComment",
-  "": "wall.edit"
+  "getLikesFromWallPost": "wall.getLikes",
+  "deleteWallPost": "wall.delete"
 }

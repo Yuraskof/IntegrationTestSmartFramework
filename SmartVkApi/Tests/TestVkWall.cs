@@ -74,7 +74,26 @@ namespace SmartVkApi.Tests
             });
             Logger.Info("Step 9 completed.");
 
+            myProfilePage.AddLike(editedPostModel);
+            Logger.Info("Step 10 completed.");
 
+            GetLikesRequestModel getLikesRequestModel = ModelUtils.CreateGetLikesRequestModel(editedPostResponseModel.response.post_id);
+            GetLikesResponseModel getLikesResponseModel = ApiApplicationRequest.GetLikesFromTheWallPost(getLikesRequestModel);
+            
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(getLikesResponseModel.response.count > 0, "Post should contains like");
+                Assert.IsTrue(ModelUtils.FindLikeFromUser(getLikesResponseModel, editedPostModel), "Post doesn't contain like from the desired user");
+            });
+            Logger.Info("Step 11 completed.");
+
+            DeletePostFromWallModel deletePostModel = ModelUtils.CreateDeletePostFromWallModel(editedPostResponseModel.response.post_id);
+            DeletePostFromWallResponseModel deletePostFromWallResponseModel = ApiApplicationRequest.DeletePost(deletePostModel);
+            Assert.IsTrue(deletePostFromWallResponseModel.response == 1, "Response doesn't equal 1");
+            Logger.Info("Step 12 completed.");
+
+            Assert.IsTrue(myProfilePage.CheckThePostNotExist(editedPostModel), "Post not deleted");
+            Logger.Info("Step 13 completed. Test case successfully finished.");
         }
 
         public static IEnumerable<object[]> PrepareToTest()

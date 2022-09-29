@@ -16,8 +16,12 @@ namespace SmartVkApi.Forms.Pages
         private ITextBox CommentTextBox(string postText, string commentText) => PostTextBox(postText).FindChildElement<ITextBox>(By.XPath(string.Format("//following::div[@class = \"wall_reply_text\"][contains (text(), \"{0}\")]", commentText)), "Comment");
 
         private ILink CommentAuthorNameLink(string postText, string commentText) => PostTextBox(postText).FindChildElement<ILink>(By.XPath(string.Format("//following::div[@class = \"wall_reply_text\"][contains (text(), \"{0}\")]//preceding:: div[@class = \"reply_author\"]//a[@class = \"author\"]", commentText)), "Comment author");
+
+        private IButton ShowNextComment(string postText) => PostTextBox(postText).FindChildElement<IButton>(By.XPath("//following:: span[contains(@class, \"js-replies_next_label\")]"), "Show next comment");
+
+        private IButton LikeButton(string postText) => PostTextBox(postText).FindChildElement<IButton>(By.XPath("//following::span[contains(@class, \"_like_button_icon\")]"), "Add like");
+
         
-        private IButton ShowNextComment(string postText) => ElementFactory.GetButton(By.XPath(string.Format("//div[contains (text(), \"{0}\")]//following:: span[contains(@class, \"js-replies_next_label\")]", postText)), "Show next comment");
         
         public FullSizeImageForm fullSizeImageForm = new FullSizeImageForm();
         
@@ -54,5 +58,16 @@ namespace SmartVkApi.Forms.Pages
         {
             return CommentAuthorNameLink(postModel.message, commentModel.message).Href;
         }
+
+        public void AddLike(WallPostModel postModel)
+        {
+            LikeButton(postModel.message).Click();
+        }
+
+        public bool CheckThePostNotExist(WallPostModel postModel)
+        {
+            return PostTextBox(postModel.message).State.WaitForNotDisplayed(TimeSpan.FromSeconds(ProjectConstants.TimeoutForPost));
+        }
+
     }
 }

@@ -75,5 +75,42 @@ namespace SmartVkApi.Utilities
             model.post_id = postId;
             return model;
         }
+
+        public static GetLikesRequestModel CreateGetLikesRequestModel(object content)
+        {
+            BaseTest.Logger.Info("Start creating get likes request model");
+
+            GetLikesRequestModel model = new GetLikesRequestModel();
+            model.v = BaseTest.testData.ApiVersion;
+            model.owner_id = BaseTest.testData.UserId;
+            model.access_token = BaseTest.testData.Token;
+            model.post_id = content.ToString(); ;
+            return model;
+        }
+
+        public static bool FindLikeFromUser(GetLikesResponseModel getLikesResponseModel, WallPostModel postModel)
+        {
+            BaseTest.Logger.Info("Start searching like from desired user");
+            foreach (var user in getLikesResponseModel.response.users)
+            {
+                if (user.uid == postModel.owner_id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static DeletePostFromWallModel CreateDeletePostFromWallModel(object content)
+        {
+            BaseTest.Logger.Info("Start creating delete post from wall request model");
+
+            DeletePostFromWallModel model = new DeletePostFromWallModel();
+            model.v = BaseTest.testData.ApiVersion;
+            model.owner_id = BaseTest.testData.UserId;
+            model.access_token = BaseTest.testData.Token;
+            model.post_id = content.ToString(); ;
+            return model;
+        }
     }
 }

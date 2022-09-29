@@ -2,8 +2,6 @@
 {
     public class ProjectConstants
     {
-        public const int Timeout = 1;
-        public const double PollingInterval = 0.5;
         public const int TimeoutForElements = 2;
         public const int TimeoutForPost = 5;
         public const string PathToLogFile = @"..\..\..\Log\log.log";

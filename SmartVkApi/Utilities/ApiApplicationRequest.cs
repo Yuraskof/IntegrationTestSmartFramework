@@ -126,6 +126,36 @@ namespace SmartVkApi.Utilities
 
             return JsonUtils.ReadJsonData<WallCommentResponseModel>(contentString);
         }
+
+        public static GetLikesResponseModel GetLikesFromTheWallPost(GetLikesRequestModel model)
+        {
+            BaseTest.Logger.Info("Send get likes request");
+            string request = host + apiMethods["getLikesFromWallPost"] + "?" + "owner_id=" + model.owner_id + "&" +
+                             "post_id=" + model.post_id + "&" + "access_token=" +
+                             model.access_token + "&" + "v=" + model.v;
+
+            response = VkApi.GetRequest(request);
+
+            string contentString = response.Content.ReadAsStringAsync().Result;
+
+            return JsonUtils.ReadJsonData<GetLikesResponseModel>(contentString);
+        }
+
+        public static DeletePostFromWallResponseModel DeletePost(DeletePostFromWallModel model)
+        {
+            BaseTest.Logger.Info("Send delete post request");
+            string request = host + apiMethods["deleteWallPost"] + "?" + "owner_id=" + model.owner_id + "&" +
+                             "post_id=" + model.post_id + "&" + "access_token=" +
+                             model.access_token + "&" + "v=" + model.v;
+
+            response = VkApi.GetRequest(request);
+
+            string contentString = response.Content.ReadAsStringAsync().Result;
+
+            return JsonUtils.ReadJsonData<DeletePostFromWallResponseModel>(contentString);
+        }
+
+
         //public static List<PostModel> GetAllPosts()
         //{
         //    Test.Log.Info("Get all posts");

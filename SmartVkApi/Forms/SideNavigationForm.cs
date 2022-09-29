@@ -19,7 +19,7 @@ namespace SmartVkApi.Forms
 
         public bool GoToMyProfilePage(LocalizedTestDataModel model)
         {
-            MoreButton.State.WaitForEnabled(TimeSpan.FromSeconds(ProjectConstants.TimeoutForElements));
+            FormElement.State.WaitForEnabled(TimeSpan.FromSeconds(ProjectConstants.TimeoutForElements));
 
             if (MyPageButton(model.MyProfile).State.IsExist)
             {
