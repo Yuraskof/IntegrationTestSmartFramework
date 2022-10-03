@@ -1,7 +1,7 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
-using SmartVkApi.Constants;
+using SmartVkApi.Base;
 using SmartVkApi.Models;
 
 namespace SmartVkApi.Forms
@@ -17,7 +17,7 @@ namespace SmartVkApi.Forms
         public void SelectLanguage(LocalizedTestDataModel model)
         {
             SelectLanguageButton(model.Language).ClickAndWait();
-            SelectLanguageButton(model.Language).State.WaitForNotExist(TimeSpan.FromSeconds(ProjectConstants.TimeoutForElements));
+            SelectLanguageButton(model.Language).State.WaitForNotExist(BaseTest.timeoutForElements);
         }
     }
 }

@@ -1,15 +1,11 @@
-﻿using SmartVkApi.Utilities;
-
-namespace RestApiTask.Utils
+﻿namespace SmartVkApi.Utilities
 {
-    public class StringUtils
+    public static class StringUtils
     {
         public static string StringGenerator(int lettersCount)
         {
             char[] letters = "ABCDEFGHI_JKLMN-OPQRS!TUVWXYZabc,defghigklmnopqrstuvwxyz".ToCharArray();
-
             Random rand = new Random();
-
             string word = "";
 
             for (int j = 1; j <= lettersCount; j++)

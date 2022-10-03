@@ -16,8 +16,9 @@ namespace SmartVkApi.Base
 
         public static Logger Logger => AqualityServices.Get<Logger>();
         private TestContext.ResultAdapter Result => TestContext.CurrentContext.Result;
-
-        public static readonly TestData testData = JsonUtils.ReadJsonDataFromPath<TestData>(ProjectConstants.PathToTestData);
+        public static readonly TestData testData = JsonUtils.ReadJsonDataFromPath<TestData>(FileConstants.PathToTestData);
+        public static readonly TimeSpan timeoutForPosts = FileReader.SetTimespan("ForPosts");
+        public static readonly TimeSpan timeoutForElements = FileReader.SetTimespan("ForElements");
 
         [SetUp]
         public void Setup()

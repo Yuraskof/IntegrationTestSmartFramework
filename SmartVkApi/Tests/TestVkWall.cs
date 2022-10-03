@@ -3,7 +3,6 @@ using SmartVkApi.Forms.Pages;
 using SmartVkApi.Models;
 using SmartVkApi.Forms;
 using SmartVkApi.Utilities;
-using RestApiTask.Utils;
 using SmartVkApi.Models.RequestModels;
 using SmartVkApi.Models.ResponseModels;
 
@@ -17,10 +16,9 @@ namespace SmartVkApi.Tests
         {
             LoginOrRegistrationPage loginOrRegistrationPage = new LoginOrRegistrationPage();
             Assert.IsTrue(loginOrRegistrationPage.State.WaitForDisplayed(), $"{loginOrRegistrationPage.Name} should be presented");
-            loginOrRegistrationPage.SelectLanguage(model);
-            loginOrRegistrationPage.PerformLogin(model);
+            loginOrRegistrationPage.PerformAuthorisation(model);
             Assert.IsTrue(loginOrRegistrationPage.passwordForm.State.WaitForDisplayed(), $"{loginOrRegistrationPage.passwordForm.Name} should be presented");
-            loginOrRegistrationPage.passwordForm.PerformPassword(model);
+            loginOrRegistrationPage.passwordForm.PerformPassword();
             Logger.Info("Step 2 completed.");
 
             SideNavigationForm sideNavigationForm = new SideNavigationForm();
@@ -105,9 +103,7 @@ namespace SmartVkApi.Tests
         public static IEnumerable<object[]> PrepareToTest()
         {
             FileReader.ClearLogFile();
-
             List<LocalizedTestDataModel> modelsList = ModelUtils.GetModels();
-
             LoggerUtils.LogStep(nameof(PrepareToTest) + " \"Get localized models\"");
 
             foreach (var model in modelsList)

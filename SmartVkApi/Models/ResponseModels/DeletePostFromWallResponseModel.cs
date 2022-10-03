@@ -3,6 +3,5 @@
     public class DeletePostFromWallResponseModel
     {
         public int response { get; set; }
-
     }
 }

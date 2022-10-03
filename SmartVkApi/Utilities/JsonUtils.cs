@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SmartVkApi.Base;
 
 namespace SmartVkApi.Utilities
 {
@@ -9,7 +8,6 @@ namespace SmartVkApi.Utilities
         public static JObject ParseToJsonObject(string content)
         {
             LoggerUtils.LogStep(nameof(ParseToJsonObject) + " \"Start parsing to json object\"");
-            
             return JObject.Parse(content);
         }
 

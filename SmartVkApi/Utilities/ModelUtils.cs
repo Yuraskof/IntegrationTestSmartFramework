@@ -13,20 +13,16 @@ namespace SmartVkApi.Utilities
         public static List<LocalizedTestDataModel> GetModels()
         {
             LoggerUtils.LogStep(nameof(GetModels) + " \"Start creating localized test data model\"");
-
-            var json = File.ReadAllText(ProjectConstants.PathToLocalizedTestData);
+            var json = File.ReadAllText(FileConstants.PathToLocalizedTestData);
             var jsonObj = JsonUtils.ParseToJsonObject(json);
             var testData = jsonObj["Localizations"].ToString();
-
             var modelsList = JsonUtils.ReadJsonData<List<LocalizedTestDataModel>>(testData);
-
             return modelsList;
         }
 
         public static WallPostModel CreateWallPostModel(object content, string attachments = null, string postId = null)
         {
             LoggerUtils.LogStep(nameof(CreateWallPostModel) + " \"Start creating wall post model\"");
-
             WallPostModel postModel = new WallPostModel();
             postModel.message = content.ToString();
             postModel.v = BaseTest.testData.ApiVersion;
@@ -40,7 +36,6 @@ namespace SmartVkApi.Utilities
         public static GetUploadUrlModel CreateGetUploadUrlModel(object content)
         {
             LoggerUtils.LogStep(nameof(CreateGetUploadUrlModel) + " \"Start creating get upload url model\"");
-            
             GetUploadUrlModel model = new GetUploadUrlModel();
             model.group_id = content.ToString();
             model.v = BaseTest.testData.ApiVersion;
@@ -51,7 +46,6 @@ namespace SmartVkApi.Utilities
         public static SaveWallPhotoModel CreateSaveWallPhotoModel()
         {
             LoggerUtils.LogStep(nameof(CreateSaveWallPhotoModel) + " \"Start creating wall post model\"");
-            
             SaveWallPhotoModel model = new SaveWallPhotoModel();
             model.user_id = BaseTest.testData.UserId;
             model.v = BaseTest.testData.ApiVersion;
@@ -65,7 +59,6 @@ namespace SmartVkApi.Utilities
         public static WallCommentModel CreateWallCommentModel(object content, string attachments = null, string postId = null)
         {
             LoggerUtils.LogStep(nameof(CreateWallCommentModel) + " \"Start creating wall comment model\"");
-            
             WallCommentModel model = new WallCommentModel();
             model.message = content.ToString();
             model.v = BaseTest.testData.ApiVersion;
@@ -79,7 +72,6 @@ namespace SmartVkApi.Utilities
         public static GetLikesRequestModel CreateGetLikesRequestModel(object content)
         {
             LoggerUtils.LogStep(nameof(CreateGetLikesRequestModel) + " \"Start creating get likes request model\"");
-            
             GetLikesRequestModel model = new GetLikesRequestModel();
             model.v = BaseTest.testData.ApiVersion;
             model.owner_id = BaseTest.testData.UserId;
@@ -91,7 +83,7 @@ namespace SmartVkApi.Utilities
         public static bool FindLikeFromUser(GetLikesResponseModel getLikesResponseModel, WallPostModel postModel)
         {
             LoggerUtils.LogStep(nameof(FindLikeFromUser) + " \"Start searching like from desired user\"");
-           
+
             foreach (var user in getLikesResponseModel.response.users)
             {
                 if (user.uid == postModel.owner_id)
@@ -105,7 +97,6 @@ namespace SmartVkApi.Utilities
         public static DeletePostFromWallModel CreateDeletePostFromWallModel(object content)
         {
             LoggerUtils.LogStep(nameof(CreateDeletePostFromWallModel) + " \"Start creating delete post from wall request model\"");
-            
             DeletePostFromWallModel model = new DeletePostFromWallModel();
             model.v = BaseTest.testData.ApiVersion;
             model.owner_id = BaseTest.testData.UserId;

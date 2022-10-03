@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using SmartVkApi.Base;
+﻿using SmartVkApi.Base;
 using System.Runtime.CompilerServices;
 
 namespace SmartVkApi.Utilities

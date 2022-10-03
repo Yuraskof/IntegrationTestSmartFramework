@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Aquality.Selenium.Browsers;
+using Aquality.Selenium.Core.Configurations;
+using Newtonsoft.Json.Linq;
 using SmartVkApi.Constants;
 
 namespace SmartVkApi.Utilities
@@ -8,8 +10,7 @@ namespace SmartVkApi.Utilities
         public static Dictionary<string, string> GetApiMethods()
         {
             LoggerUtils.LogStep(nameof(GetApiMethods) + " \"Get api methods\"");
-            
-            var filePath = ProjectConstants.PathToApiMethods;
+            var filePath = FileConstants.PathToApiMethods;
             var json = File.ReadAllText(filePath);
             var jsonObj = JObject.Parse(json);
 
@@ -24,7 +25,7 @@ namespace SmartVkApi.Utilities
 
         public static void ClearLogFile()
         {
-            FileInfo file = new FileInfo(ProjectConstants.PathToLogFile);
+            FileInfo file = new FileInfo(FileConstants.PathToLogFile);
 
             if (file.Exists)
             {
@@ -47,6 +48,12 @@ namespace SmartVkApi.Utilities
                 LoggerUtils.LogStep(nameof(ReadFile) + $" \"File - [{path}] read\"");
                 return sr.ReadToEnd();
             }
+        }
+        
+        public static TimeSpan SetTimespan(string name)
+        {
+            var settingsFile = AqualityServices.Get<ISettingsFile>();
+            return TimeSpan.FromSeconds(settingsFile.GetValue<int>($".timeouts.timeout{name}"));
         }
     }
 }

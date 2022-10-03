@@ -1,7 +1,7 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
 using OpenQA.Selenium;
-using SmartVkApi.Constants;
+using SmartVkApi.Base;
 using SmartVkApi.Models;
 
 namespace SmartVkApi.Forms
@@ -19,7 +19,7 @@ namespace SmartVkApi.Forms
 
         public bool GoToMyProfilePage(LocalizedTestDataModel model)
         {
-            FormElement.State.WaitForEnabled(TimeSpan.FromSeconds(ProjectConstants.TimeoutForElements));
+            FormElement.State.WaitForEnabled(BaseTest.timeoutForElements);
 
             if (MyPageButton(model.MyProfile).State.IsExist)
             {
@@ -34,7 +34,7 @@ namespace SmartVkApi.Forms
         private void OpenLanguageSelectForm()
         {
             MoreButton.JsActions.HoverMouse();
-            ChangeLanguageButton.State.WaitForEnabled(TimeSpan.FromSeconds(ProjectConstants.TimeoutForElements)); 
+            ChangeLanguageButton.State.WaitForEnabled(BaseTest.timeoutForElements); 
             ChangeLanguageButton.Click();
         }
     }
